@@ -1,10 +1,18 @@
-split_batch <- function(){
+#' Title
+#'
+#' @param vec
+#' @param batch_size
+#'
+#' @returns
+#' @export
+#'
+#' @examples
+split_batch <- function(vec = symbols,
+                        batch_size = 10){
 
-  make_batches <- function(vec, batch_size) {
-    vec <- sample(vec)  # permutation aléatoire
-    split(vec, ceiling(seq_along(vec) / batch_size))
-  }
+    vec <- sample(vec)
+    symbolsBatches <- split(vec, ceiling(seq_along(vec) / batch_size))
 
-  symbolsBatches <- make_batches(symbols,10)
+    return(symbolsBatches)
 
 }

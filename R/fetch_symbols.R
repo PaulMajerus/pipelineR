@@ -9,13 +9,13 @@
 #' @examples
 fetch_symbols <- function(con){
 
-  req <- glue_sql("SELECT DISTINCT symbol
-                  FROM info",
+  req <- glue::glue_sql("SELECT DISTINCT symbol
+                  FROM sp500.info",
                   .con = con)
 
-  listeSymbols <- DBI::dbGetQuery(con, req)
+  symbols <- DBI::dbGetQuery(con,req) %>% dplyr::pull(symbol)
 
-  return(table)
+  return(symbols)
 }
 
 
