@@ -22,10 +22,10 @@
 #' \dontrun{
 #' summary_table <- log_summary(newObservation)
 #' }
-log_summary <- function(newObservation = list()) {
+log_summary <- function(newObservations = list()) {
 
   # Create the summary table by processing each new observation batch
-  summary_table <- lapply(newObservation, function(x) {
+  summary_table <- lapply(newObservations, function(x) {
     n_rows <- nrow(x)
 
     # Create a summary for each batch

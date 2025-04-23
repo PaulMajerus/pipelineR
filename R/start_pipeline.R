@@ -34,14 +34,15 @@ start_pipeline <- function(batch_size = 10){
   formattedTable <- format_data(table = table)
 
   #insert_new_data()
-  newObservation <- insert_new_data(con = con,
+  newObservations <- insert_new_data(con = con,
                                     formattedTable = formattedTable)
 
   #log_summary()
-  summaryTable <- log_summary(newObservation = newObservation)
+  summaryTable <- log_summary(newObservations = newObservations)
 
   # push_summary_table()
-  push_summary_table()
+  push_summary_table(con=con,
+                     summaryTable = summaryTable)
   #dbDisconnect
   DBI::dbDisconnect(con)
 }

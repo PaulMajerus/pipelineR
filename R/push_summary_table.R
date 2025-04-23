@@ -20,8 +20,12 @@ push_summary_table <- function(summaryTable = tibble(),
   # Append the summary table to the "pipeline_logs" table in the user's schema
   DBI::dbAppendTable(
     conn = con,
-    name = paste0("student_", Sys.getenv("PG_USER"), ".pipeline_logs"),
+    name = DBI::Id(
+      schema = paste0("student_", Sys.getenv("PG_USER")),
+      table = "pipeline_logs"
+    ),
     value = summaryTable
   )
+
 
 }

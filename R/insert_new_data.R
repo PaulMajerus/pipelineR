@@ -33,7 +33,7 @@ insert_new_data <- function(con,
 
   # Charger la table principale d'observation
   req_data <- glue::glue_sql(paste0("
-    SELECT id, index_ts, date, metric, value
+    SELECT *
     FROM student_", Sys.getenv("PG_USER"), ".data_sp500"),
                              .con = con)
 
@@ -55,7 +55,7 @@ insert_new_data <- function(con,
     if (n_new > 0) {
       x_new <- x_new |>
         dplyr::mutate(id = seq_len(n_new) + id_counter) |>
-        dplyr::select(id, index_ts, date, metric, value)
+        dplyr::select(id, index_ts, date, metric, value,symbol)
 
       id_counter <<- id_counter + n_new
       return(x_new)
@@ -72,7 +72,7 @@ insert_new_data <- function(con,
         name = DBI::SQL(paste0("student_",
                                Sys.getenv("PG_USER"),
                                ".data_sp500")),
-        value = x
+        value = x |> dplyr::select(-symbol)
       )
     }
   })
