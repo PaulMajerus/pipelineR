@@ -39,25 +39,43 @@ insert_new_data <- function(con,
 
   tableHolc <- DBI::dbGetQuery(con, req_data)
 
-  # Détecter uniquement les nouvelles observations
+
+  # ID initial
+  id_counter <- if (nrow(tableHolc) == 0) 0 else
+    max(tableHolc$id, na.rm = TRUE)
+
+  # Résultat : liste avec IDs incrémentés
   newObservations <- lapply(new_data, function(x) {
-    dplyr::anti_join(
-      x,
-      tableHolc,
-      by = c("index_ts", "date", "metric")
-    )
+    # lignes nouvelles
+    x_new <- dplyr::anti_join(x,
+                              tableHolc,
+                              by = c("index_ts", "date", "metric"))
+    n_new <- nrow(x_new)
+
+    if (n_new > 0) {
+      x_new <- x_new |>
+        dplyr::mutate(id = seq_len(n_new) + id_counter) |>
+        dplyr::select(id, index_ts, date, metric, value)
+
+      id_counter <<- id_counter + n_new
+      return(x_new)
+    } else {
+      return(NULL)
+    }
   })
 
   # Insérer les nouvelles observations
-  invisible(lapply(newObservations, function(x) {
+  lapply(newObservations, function(x) {
     if (nrow(x) > 0) {
       DBI::dbAppendTable(
         conn = con,
-        name = DBI::SQL(paste0("student_", Sys.getenv("PG_USER"), ".data_sp500")),
+        name = DBI::SQL(paste0("student_",
+                               Sys.getenv("PG_USER"),
+                               ".data_sp500")),
         value = x
       )
     }
-  }))
+  })
 
   return(newObservations)
 }
