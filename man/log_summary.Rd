@@ -4,10 +4,12 @@
 \alias{log_summary}
 \title{Log Summary of New Observations}
 \usage{
-log_summary(newObservations = list())
+log_summary(newObservations = list(), symbolsBatches = list())
 }
 \arguments{
-\item{newObservation}{A list of \code{tibble}s containing the new observations for each batch.}
+\item{newObservations}{A list of \code{tibble}s containing the new observations for each batch.}
+
+\item{symbolsBatches}{A list of character vector containing the symbols by batches}
 }
 \value{
 A \code{tibble} summarizing the results of the batch processing with columns:
