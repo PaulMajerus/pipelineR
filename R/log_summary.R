@@ -36,7 +36,8 @@ log_summary <- function(newObservation = list()) {
       ) |>
       dplyr::mutate(
         user_login = Sys.getenv("PG_USER"),
-        message = if (n_rows == 0) "No new rows to insert" else "Batch processed"
+        message = if (n_rows == 0) "No new rows to insert" else
+          "Batch processed"
       )
   }) |>
     dplyr::bind_rows(.id = "batch_id") |>
