@@ -3,7 +3,7 @@
 #' Generates a summary table for the new observations processed, including the number of rows,
 #' the symbols involved, and a message indicating whether new rows were inserted or not.
 #'
-#' @param newObservation A list of `tibble`s containing the new observations for each batch.
+#' @param newObservations A list of `tibble`s containing the new observations for each batch.
 #'
 #' @return A `tibble` summarizing the results of the batch processing with columns:
 #' \itemize{
