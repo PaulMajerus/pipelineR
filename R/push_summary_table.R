@@ -27,5 +27,4 @@ push_summary_table <- function(summaryTable = tibble(),
     value = summaryTable
   )
 
-
 }

@@ -42,7 +42,8 @@ print("Yahoo data formatted")
 
   print("New observations compiled")
   #log_summary()
-  summaryTable <- log_summary(newObservations = newObservations)
+  summaryTable <- log_summary(newObservations = newObservations,
+                              symbolsBatches = symbolsBatches)
 
   print("Summary table compiled")
   # push_summary_table()

@@ -41,8 +41,7 @@ insert_new_data <- function(con,
 
 
   # ID initial
-  id_counter <- if (nrow(tableHolc) == 0) 0 else
-    max(tableHolc$id, na.rm = TRUE)
+  id_counter <- if (nrow(tableHolc) == 0) 0 else  max(tableHolc$id, na.rm = TRUE)
 
   # Résultat : liste avec IDs incrémentés
   newObservations <- lapply(new_data, function(x) {
@@ -60,7 +59,7 @@ insert_new_data <- function(con,
       id_counter <<- id_counter + n_new
       return(x_new)
     } else {
-      return(NULL)
+      return(x_new)
     }
   })
 

@@ -4,6 +4,7 @@
 #' the symbols involved, and a message indicating whether new rows were inserted or not.
 #'
 #' @param newObservations A list of `tibble`s containing the new observations for each batch.
+#' @param symbolsBatches A list of character vector containing the symbols by batches
 #'
 #' @return A `tibble` summarizing the results of the batch processing with columns:
 #' \itemize{
@@ -22,17 +23,18 @@
 #' \dontrun{
 #' summary_table <- log_summary(newObservation)
 #' }
-log_summary <- function(newObservations = list()) {
+log_summary <- function(newObservations = list(),
+                        symbolsBatches = list()) {
 
   # Create the summary table by processing each new observation batch
-  summary_table <- lapply(newObservations, function(x) {
-    n_rows <- nrow(x)
+  summary_table <- lapply(1:length(newObservations), function(x) {
+    n_rows <- nrow(newObservations[[x]])
 
     # Create a summary for each batch
-    x |>
+    newObservations[[x]] |>
       dplyr::summarize(
         n_rows = n_rows,
-        symbol = paste(unique(symbol), collapse = ",")
+        symbol = paste0(symbolsBatches[[x]], collapse = ",")
       ) |>
       dplyr::mutate(
         user_login = Sys.getenv("PG_USER"),
@@ -43,10 +45,9 @@ log_summary <- function(newObservations = list()) {
     dplyr::bind_rows(.id = "batch_id") |>
     dplyr::mutate(
       status = "OK",
-      timestamp = Sys.time(),
-      id = dplyr::row_number()
+      timestamp = Sys.time()
     ) |>
-    dplyr::select(id, user_login, batch_id, symbol, status, n_rows, message, timestamp)
+    dplyr::select(user_login, batch_id, symbol, status, n_rows, message, timestamp)
 
   return(summary_table)
 }
