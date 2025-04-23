@@ -17,7 +17,7 @@ fetch_symbols <- function(con) {
     .con = con
   )
 
-  symbols <- DBI::dbGetQuery(con, req) %>%
+  symbols <- DBI::dbGetQuery(con, req) |>
     dplyr::pull(symbol)
 
   return(symbols)

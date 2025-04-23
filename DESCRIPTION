@@ -5,8 +5,17 @@ Authors@R:
     person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
+URL: https://github.com/PaulMajerus/pipelineR
+BugReports: https://github.com/PaulMajerus/pipelineR/issues
+Imports: 
+    DBI,
+    dplyr,
+    glue,
+    lubridate,
+    luxJob,
+    tibble,
+    tidyquant,
+    tidyr
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-URL: https://github.com/PaulMajerus/pipelineR
-BugReports: https://github.com/PaulMajerus/pipelineR/issues

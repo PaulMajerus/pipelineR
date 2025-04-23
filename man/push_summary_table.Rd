@@ -9,6 +9,8 @@ push_summary_table(summaryTable = tibble(), con = con)
 \arguments{
 \item{summaryTable}{A \code{tibble} containing the summary of new observations that were processed.
 The table must have the same structure as the \code{pipeline_logs} table in the PostgreSQL database.}
+
+\item{con}{A connection to the database.}
 }
 \value{
 NULL This function does not return anything. It performs an append operation to the database.

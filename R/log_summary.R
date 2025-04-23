@@ -29,22 +29,22 @@ log_summary <- function(newObservation = list()) {
     n_rows <- nrow(x)
 
     # Create a summary for each batch
-    x %>%
+    x |>
       dplyr::summarize(
         n_rows = n_rows,
         symbol = paste(unique(symbol), collapse = ",")
-      ) %>%
+      ) |>
       dplyr::mutate(
         user_login = Sys.getenv("PG_USER"),
         message = if (n_rows == 0) "No new rows to insert" else "Batch processed"
       )
-  }) %>%
-    dplyr::bind_rows(.id = "batch_id") %>%
+  }) |>
+    dplyr::bind_rows(.id = "batch_id") |>
     dplyr::mutate(
       status = "OK",
       timestamp = Sys.time(),
       id = dplyr::row_number()
-    ) %>%
+    ) |>
     dplyr::select(id, user_login, batch_id, symbol, status, n_rows, message, timestamp)
 
   return(summary_table)

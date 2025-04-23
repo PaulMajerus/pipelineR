@@ -5,6 +5,7 @@
 #'
 #' @param summaryTable A `tibble` containing the summary of new observations that were processed.
 #' The table must have the same structure as the `pipeline_logs` table in the PostgreSQL database.
+#' @param con A connection to the database.
 #'
 #' @return NULL This function does not return anything. It performs an append operation to the database.
 #' @export

@@ -28,7 +28,8 @@ build_summary_table <- function() {
     status     = character(0),
     n_rows     = integer(0),
     message    = character(0),
-    timestamp  = as.POSIXct(0, format = "%Y-%m-%d %H:%M:%S", tz = "Europe/Paris")
+    timestamp  = as.POSIXct(0, format = "%Y-%m-%d %H:%M:%S",
+                            tz = "Europe/Paris")
   )
 
   return(summaryTable)

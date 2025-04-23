@@ -26,8 +26,8 @@ insert_new_data <- function(con,
 
   # Joindre l'index_ts à chaque table
   new_data <- lapply(formattedTable, function(x) {
-    x %>%
-      dplyr::left_join(tableInfo %>% dplyr::select(symbol, index_ts),
+    x |>
+      dplyr::left_join(tableInfo |> dplyr::select(symbol, index_ts),
                        by = "symbol")
   })
 

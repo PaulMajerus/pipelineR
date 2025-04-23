@@ -15,7 +15,7 @@
 #' }
 format_data <- function(table = list()) {
   formattedTable <- lapply(table, function(x) {
-    x %>%
+    x |>
       tidyr::pivot_longer(
         names_to = "metric",
         values_to = "value",
